@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Appointment Requests | VELORA{% endblock %}
+{% block content %}
+<main class="admin-page section-pad">
+  <p class="eyebrow">INTERNAL DEMO VIEW</p><h1>Appointment <em>requests.</em></h1>
+  <p class="admin-warning">Portfolio demonstration only. This page is not password-protected; do not use it with real customer information until authentication is added.</p>
+  {% if appointments %}
+  <div class="table-wrap"><table><thead><tr><th>Name</th><th>Phone</th><th>Service</th><th>Preferred date</th><th>Message</th><th>Status</th><th>Update</th></tr></thead><tbody>
+  {% for item in appointments %}<tr><td>{{ item.customer_name }}</td><td>{{ item.phone }}</td><td>{{ item.service }}</td><td>{{ item.preferred_date }}</td><td>{{ item.message or "—" }}</td><td>{{ item.status }}</td><td><form method="post" action="{{ url_for('update_status', appointment_id=item.id) }}" class="status-form"><select name="status"><option>Pending</option><option>Confirmed</option><option>Completed</option><option>Cancelled</option></select><button class="button button-small">Save</button></form></td></tr>{% endfor %}
+  </tbody></table></div>
+  {% else %}<div class="empty-state">No appointment requests yet.</div>{% endif %}
+  <a class="text-link" href="{{ url_for('home') }}">← Back to website</a>
+</main>
+{% endblock %}
